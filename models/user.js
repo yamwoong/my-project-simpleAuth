@@ -16,7 +16,9 @@ const userSchema = new mongoose.Schema({
     password : {
         type : String,
         required : true
-    }
+    },
+    resetpasswordtoken : {type : String}, // 비밀번호 재설정 토큰
+    resetpasswordexpires : {type : Date} // 토큰 만료 시간
 });
 
 // 비밀번호 해싱(저장 전에 실행)
