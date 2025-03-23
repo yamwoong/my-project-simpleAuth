@@ -10,8 +10,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 (async () => {
     try {
-        const testToken = "66138ff5914cb1002fddee0d3f6411139fee3e6f83ed993cb7f11b21212ed4c9"; // DB에서 가져온 토큰
-        const newPassword = '1'; // 새 비밀번호
+        const testToken = "5bf8e4d1-6a45-4e42-80b7-a4ec37c1c375"; // DB에서 가져온 토큰
+        const newPassword = 'q'; // 새 비밀번호
 
         const result = await resetPassword(testToken, newPassword);
         console.log("✅ 비밀번호 변경 성공:", result);

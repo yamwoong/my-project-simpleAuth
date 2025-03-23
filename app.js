@@ -4,6 +4,8 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const authRoutes = require('./routes/auth');
+const passwordUiRoutes = require('./routes/passwordUiRoutes');  // UI 페이지용
+const passwordApiRoutes = require('./routes/passwordApiRoutes'); // API용
 const errorHandler = require('./middlewares/errorHandler');
 const notFoundHandler = require('./middlewares/notFoundHandler');
 require('dotenv').config(); // 환경 변수 로드드
@@ -49,6 +51,10 @@ app.use(session({
 
 // 라우트 설정
 app.use(authRoutes); // 인증 관련 라우트 연결
+
+ // 인증 관련 라우트 연결
+app.use(passwordUiRoutes);  // UI 관련 페이지
+app.use('/api/password', passwordApiRoutes); // API 요청
 
 // 홈 페이지
 app.get('/', (req, res) => {

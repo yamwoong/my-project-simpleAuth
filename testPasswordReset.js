@@ -9,7 +9,7 @@ require("dotenv").config();
         console.log("✅ DB 연결 성공!");
 
         // 테스트할 이메일 입력
-        const testEmail = "0206woong@gmail.com";  // 실제 테스트할 이메일로 변경
+        const testEmail = "123";  // 실제 테스트할 이메일로 변경
 
         // 함수 실행
         await requestPasswordReset(testEmail);
