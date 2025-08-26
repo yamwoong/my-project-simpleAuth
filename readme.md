@@ -35,4 +35,5 @@ The project demonstrates **session-based authentication**, secure password stora
 - Explored integrating **Google OAuth2 and Nodemailer** for password recovery.  
 
 ## Repository  
-🔗 [GitHub – simpleAuth](https://github.com/your-repo-link)  
+🔗 [GitHub – simpleAuth](https://github.com/yamwoong/my-project-simpleAuth)  
+
