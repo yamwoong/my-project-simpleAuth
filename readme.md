@@ -1,95 +1,38 @@
-# 프로젝트 개요  
-- **프로젝트 이름** : simpleAuth  
-- **기술 스택**     : Node.js, Express, MongoDB, EJS  
-- **주요 기능**     : 사용자 회원가입, 로그인, 로그아웃  
+# Simple Auth Project  
 
----
+## Overview  
+A simple authentication system built with **Node.js, Express, MongoDB, and EJS**.  
+The project demonstrates **session-based authentication**, secure password storage, and restricted routes for logged-in users.  
 
-## 구현 순서  
-**데이터 흐름을 먼저 설계하기 위해 아래 순서대로 개발**  
-1. **모델 (Model)**     - 사용자 데이터 구조 정의  
-2. **라우트 (Route)**   - 회원가입, 로그인, 로그아웃 기능 구현  
-3. **템플릿 (View)**    - EJS를 사용하여 프론트엔드 화면 구성  
+## Tech Stack  
+- **Backend:** Node.js, Express  
+- **Database:** MongoDB, Mongoose  
+- **View Engine:** EJS  
+- **Auth & Security:** bcrypt, express-session, connect-mongo, uuid  
 
----
+## Features  
+- User registration with password hashing  
+- User login & logout with session-based authentication  
+- Dashboard accessible only to authenticated users  
+- Email duplication check  
+- Password reset flow (with OAuth2 + Nodemailer)  
+- Future plans: profile page, password change, Google OAuth login, login attempt limiter  
 
-## 개발 중 체크리스트  
-### 1.프로젝트 기본 설정  
-- [X] `npm init`으로 프로젝트 초기화  
-- [X] Express 설치 및 기본 서버 구축  
-- [X] MongoDB 연결 설정 (`mongoose`)  
+## API Routes  
+| Method | Route       | Description                | Auth Required |  
+|--------|------------|----------------------------|---------------|  
+| GET    | /register  | Render registration form   | No            |  
+| POST   | /register  | Handle registration        | No            |  
+| GET    | /login     | Render login form          | No            |  
+| POST   | /login     | Handle login               | No            |  
+| POST   | /logout    | Handle logout              | Yes           |  
+| GET    | /dashboard | Render dashboard page      | Yes           |  
 
-### 2.인증 기능 개발  
-- [X] `User` 모델 생성 (이메일, 비밀번호 해싱)  
-- [X] 회원가입 기능 (`/register`)  
-- [X] 로그인 기능 (`/login`) - 세션을 사용한 인증  
-- [X] 로그아웃 기능 (`/logout`)  
-- [X] 로그인된 사용자만 접근 가능한 `dashboard` 페이지  
+## Key Learnings  
+- Learned the difference between **services, middlewares, and utils** in project structure.  
+- Gained hands-on experience with **session-based authentication** and secure password handling.  
+- Troubleshot real issues (e.g., double-hashing bug in password reset flow).  
+- Explored integrating **Google OAuth2 and Nodemailer** for password recovery.  
 
-### 3️.보안 강화  
-- [X] 이메일 중복 체크 기능 추가  
-- [ ] 비밀번호 재설정 기능 (비밀번호 찾기) 
-    - OAtuh2를 사용해서 이메일 발송처리하는데 연동 및 오류 처리하는데 하루 사용
-    - 비밀번호 재설정 중 새로 입력한 비밀번호로 로그인이 안되서 처리하는데 하루 사용(내가 재 설정한 비밀번호가 2중 해싱되서 로그인이 안됨)
-- [ ] 로그인 실패 시 제한 (예: 5회 실패하면 일정 시간 동안 로그인 차단)
-
-### 4️.추가 기능  
-- [ ] 프로필 페이지 (`/profile`) 추가  
-- [ ] 비밀번호 변경 기능  
-- [ ] OAuth 소셜 로그인 추가 (예: Google 로그인) 
-- [ ] 인증 성공 / 오류 시 팝업 창으로 알려주기
-
----
-
-## 기능 목록  
-- 회원가입 (폼 페이지 + 저장)  
-- 로그인 (폼 페이지 + 인증 처리)  
-- 로그아웃  
-- 인증된 사용자만 볼 수 있는 대시보드 페이지  
-
----
-
-## 🔗 API 라우트 정의  
-| Method | Route       | 설명               | 인증 필요 |
-|--------|------------|--------------------|----------|
-| GET    | /register  | 회원가입 폼 렌더링 | X      |
-| POST   | /register  | 회원가입 요청 처리 | X       |
-| GET    | /login     | 로그인 폼 렌더링   | X       |
-| POST   | /login     | 로그인 요청 처리   | X       |
-| POST   | /logout    | 로그아웃 처리      | O       |
-| GET    | /dashboard | 대시보드 페이지    | O       |
-
----
-
-## 사용된 npm 패키지  
-
-### **서버 및 프레임워크**  
-- `express` → 경량 Node.js 웹 프레임워크  
-
-### **데이터베이스**  
-- `mongoose` → MongoDB와 연결하는 ODM 라이브러리  
-
-### **템플릿 엔진**  
-- `ejs` → 서버 사이드 렌더링을 위한 템플릿 엔진  
-
-### **인증 및 보안**  
-- `bcrypt` → 비밀번호 해싱  (다음 프로젝트에서는 Argon2 사용해보기)
-- `express-session` → 세션 기반 로그인 구현 
-- `connect-mongo` -> Express 세션을 MongoDB에 저장
-- `uuid` -> 유일한 식별자를 만들기 위해 사용(비밀번호 찾기에서 사용)
-
-### **유틸리티 & 기타**  
-- `dotenv` → 환경 변수 관리  
-- `method-override` → HTML 폼에서 PUT, DELETE 사용 가능
-- `nodemailer` → 이메일 전송을 위한 라이브러리
-- `googleapis` → OAuth2 인증을 위해 필요
-
----
-
-# this
-- Mongoose 미들웨어에서 this를 사용할 경우, 반드시 일반 함수(function)를 사용해야 하고, this를 사용하지 않을 경우 화살표 함수(() => {})도 사용 가능
-
-# services / middlewares / utils 폴더의 차이점
-- services -> 비즈니스 로직 담당(데이터베이스 처리, API 호출)
-- middlewares -> 요청(Request)과 응답(Response) 중간에서 검증, 인증 처리
-- utils -> 공통적으로 쓰이는 유틸리티 함수들 (해싱, 포맷팅, 날짜 변환 등)
+## Repository  
+🔗 [GitHub – simpleAuth](https://github.com/your-repo-link)  
